@@ -24,6 +24,11 @@
         font-size: 14px;
         margin-top: 0.5em;
       }
+     .box {
+         margin-top: 0.5em;
+         padding: 0.25em;
+         border: 2px solid black;
+     }
     </style>
     <h1>Spectrogram Controls</h1>
     <div class="config">
@@ -35,10 +40,6 @@
       <input type="checkbox" id="color" checked="{{color}}">
     </div>
     <div class="config">
-      <label for="color">Use scientific pitch notation</label>
-      <input type="checkbox" id="musicalPitch" checked="{{musicalPitch}}">
-    </div>
-    <div class="config">
       <label for="speed">Speed</label>
       <input type="range" id="speed" value="{{speed}}" min="1" max="5" />
     </div>
@@ -47,10 +48,16 @@
     <input type="checkbox" id="labels" checked="{{labels}}">
     </div>
     <template if="{{labels}}">
-      <div class="config">
-      <label for="ticks">Number of ticks</label>
-      <input type="range" id="ticks" value="{{ticks}}" min="2" max="25" />
-      </div>
+      <div class="box">
+        <div class="config">
+        <label for="ticks">Number of ticks</label>
+        <input type="range" id="ticks" value="{{ticks}}" min="2" max="25" />
+        </div>
+        <div class="config">
+        <label for="color">Use scientific pitch notation</label>
+        <input type="checkbox" id="musicalPitch" checked="{{musicalPitch}}">
+        </div>
+        </div>
     </template>
     </template>
   <script src="g-spectrogram-controls.js"></script>
