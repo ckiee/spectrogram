@@ -1,7 +1,7 @@
 Polymer('g-spectrogram-controls', {
   log: false,
   labels: true,
-  ticks: 5,
+  ticks: 15,
   musicalPitch: false,
 
   created: function() {
