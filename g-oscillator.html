@@ -67,7 +67,12 @@ Polymer('g-oscillator', {
   },
 
   formatFrequency_: function(freq) {
-    return Math.round(freq) + ' Hz';
+      const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+      const c0 = 440 * Math.pow(2, -4.75);
+      const half = (Math.log2(freq / c0) + 1) * 12;
+      const note = notes[~~((half * 12) % 12)];
+      return (freq > c0 ? `${note + (note ? ~~(half / 12) - 1 : "")}` : "") + ` ${~~freq} Hz  octv${half}`
+
   },
 
   onMouseDown: function(event) {

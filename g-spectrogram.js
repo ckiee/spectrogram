@@ -187,11 +187,10 @@ Polymer('g-spectrogram', {
   formatFreq: function(freq) {
     if (this.musicalPitch) {
       const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-      const a4 = 440;
-      const c0 = a4 * Math.pow(2, -4.75);
-      const halfSteps = Math.round(12*Math.log2(freq / c0));
-      const octave = ~~(halfSteps / 12);
-      return freq > c0 ? `${notes[octave % 12] + octave}` : "";
+      const c0 = 440 * Math.pow(2, -4.75);
+      const half = (Math.log2(freq / c0) + 1) * 12;
+      const note = notes[~~((half * 12) % 12)];
+      return (freq > c0 ? `${note + (note ? ~~(half / 12) - 1 : "")}` : "");
     } else {
       return (freq >= 1000 ? (freq/1000).toFixed(1) : Math.round(freq));
     }
