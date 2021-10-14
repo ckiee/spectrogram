@@ -166,7 +166,7 @@ Polymer('g-spectrogram', {
       }
       var label = this.formatFreq(freq);
       var units = this.formatUnits(freq);
-      ctx.font = '16px Inconsolata';
+      ctx.font = `${this.ticks > 90 ? 12 : 16}px Inconsolata`;
       // Draw the value.
       ctx.textAlign = 'right';
       ctx.fillText(label, x, y + yLabelOffset);
@@ -186,7 +186,7 @@ Polymer('g-spectrogram', {
 
   formatFreq: function(freq) {
     if (this.musicalPitch) {
-      const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+      const notes = ["C", "C#", "D", "D#", "E", "——F", "F#", "G", "G#", "A", "A#", "B"];
       const c0 = 440 * Math.pow(2, -4.75);
       const half = (Math.log2(freq / c0) + 1) * 12;
       const note = notes[~~((half * 12) % 12)];
