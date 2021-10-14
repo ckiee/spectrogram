@@ -1,7 +1,7 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 
 
-<polymer-element name="g-spectrogram-controls" attributes="log labels ticks speed color">
+<polymer-element name="g-spectrogram-controls" attributes="log labels ticks speed color musicalPitch">
   <template>
     <style>
       :host {
@@ -35,6 +35,10 @@
       <input type="checkbox" id="color" checked="{{color}}">
     </div>
     <div class="config">
+      <label for="color">Use scientific pitch notation</label>
+      <input type="checkbox" id="musicalPitch" checked="{{musicalPitch}}">
+    </div>
+    <div class="config">
       <label for="speed">Speed</label>
       <input type="range" id="speed" value="{{speed}}" min="1" max="5" />
     </div>
@@ -45,7 +49,7 @@
     <template if="{{labels}}">
       <div class="config">
       <label for="ticks">Number of ticks</label>
-      <input type="range" id="ticks" value="{{ticks}}" min="2" max="10" />
+      <input type="range" id="ticks" value="{{ticks}}" min="2" max="25" />
       </div>
     </template>
     </template>

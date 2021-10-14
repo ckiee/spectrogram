@@ -13,6 +13,7 @@ Polymer('g-spectrogram', {
   fftsize: 2048,
   oscillator: false,
   color: false,
+  musicalPitch: false,
 
   attachedCallback: function() {
     this.tempCanvas = document.createElement('canvas'),
@@ -184,11 +185,20 @@ Polymer('g-spectrogram', {
   },
 
   formatFreq: function(freq) {
-    return (freq >= 1000 ? (freq/1000).toFixed(1) : Math.round(freq));
+    if (this.musicalPitch) {
+      const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+      const a4 = 440;
+      const c0 = a4 * Math.pow(2, -4.75);
+      const halfSteps = Math.round(12*Math.log2(freq / c0));
+      const octave = ~~(halfSteps / 12);
+      return freq > c0 ? `${notes[octave % 12] + octave}` : "";
+    } else {
+      return (freq >= 1000 ? (freq/1000).toFixed(1) : Math.round(freq));
+    }
   },
 
   formatUnits: function(freq) {
-    return (freq >= 1000 ? 'KHz' : 'Hz');
+    return this.musicalPitch ? "" : (freq >= 1000 ? 'KHz' : 'Hz');
   },
 
   indexToFreq: function(index) {
@@ -243,6 +253,12 @@ Polymer('g-spectrogram', {
   },
 
   ticksChanged: function() {
+    if (this.labels) {
+      this.renderAxesLabels();
+    }
+  },
+
+  musicalPitchChanged: function() {
     if (this.labels) {
       this.renderAxesLabels();
     }
